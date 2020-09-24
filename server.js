@@ -7,8 +7,8 @@ const mongoose = require("mongoose");
 const port = process.env.PORT || 4567;
 
 // -----------------------------------------------------------
-
-const postRoutes = require('./routes/post')
+const errorHandler = require("./middlewares/errorHandler");
+const postRoutes = require("./routes/post");
 
 app.use(cors());
 mongoose.Promise = global.Promise;
@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
-
-app.use('/api/post', postRoutes)
+app.use(errorHandler);
+app.use("/api/post", postRoutes);
 
 app.listen(port, () => console.log(`Application is running on port : ${port}`));

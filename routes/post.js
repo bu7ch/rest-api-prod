@@ -1,13 +1,11 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const postController = require('../controllers/postController')
-const  {hasName} = require('../validations/validators')
+const postController = require("../controllers/postController");
+const { hasDescription } = require("../validations/validators");
 //TODO: add image
- 
 
-
-router.get('/', postController.index ) 
-router.get('/:id', postController.show)
-router.post('/',hasName ,postController.save)
+router.get("/", postController.index);
+router.get("/:id", postController.show);
+router.post("/", hasDescription, postController.store);
 
 module.exports = router;

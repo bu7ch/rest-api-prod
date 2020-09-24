@@ -18,12 +18,13 @@ exports.show = async (req, res, next) => {
   }
 };
 
-exports.save = async (req, res, next) => {
+exports.store = async (req, res, next) => {
   try {
     validationHandler(req);
-    // let post = new Post(req.body);
-    // post = await post.save();
-    res.send({message: ` my name is ${req.body.name}`})
+    let post = new Post();
+    post.description = req.body.description
+    post = await post.save();
+    res.send(post)
   } catch (error) {
     next(error)
   }
