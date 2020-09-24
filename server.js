@@ -7,8 +7,10 @@ const mongoose = require("mongoose");
 const port = process.env.PORT || 4567;
 
 // -----------------------------------------------------------
+const passportJWT = require("./middlewares/passportJWT")();
 const errorHandler = require("./middlewares/errorHandler");
 const postRoutes = require("./routes/post");
+const authRoutes = require("./routes/auth");
 
 app.use(cors());
 mongoose.Promise = global.Promise;
@@ -23,8 +25,10 @@ mongoose
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(passportJWT.intialize());
 
 app.use(errorHandler);
-app.use("/api/post", postRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/post", passportJWT.authenticate(), postRoutes);
 
 app.listen(port, () => console.log(`Application is running on port : ${port}`));

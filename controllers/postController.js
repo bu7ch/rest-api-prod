@@ -23,6 +23,7 @@ exports.store = async (req, res, next) => {
     validationHandler(req);
     let post = new Post();
     post.description = req.body.description
+    post.image = req.file.filename
     post = await post.save();
     res.send(post)
   } catch (error) {

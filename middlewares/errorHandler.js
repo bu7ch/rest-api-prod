@@ -3,5 +3,9 @@ module.exports = (error, req, res, next) => {
   const message = error.message;
   const data = error.data;
   const validation = error.validation;
-  res.status(status).json({ message, data, validation });
+  res.status(status).json({
+    message,
+    data,
+    validation
+  });
 }

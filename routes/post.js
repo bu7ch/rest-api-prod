@@ -2,10 +2,11 @@ const express = require("express");
 const router = express.Router();
 const postController = require("../controllers/postController");
 const { hasDescription } = require("../validations/validators");
-//TODO: add image
+const uploadImage = require('../middlewares/multer')
+
 
 router.get("/", postController.index);
 router.get("/:id", postController.show);
-router.post("/", hasDescription, postController.store);
+router.post("/",uploadImage('posts').single('image'), hasDescription, postController.store);
 
 module.exports = router;
